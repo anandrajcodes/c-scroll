@@ -232,7 +232,9 @@ dom.btnStart.addEventListener('click', () => {
   if (state.startPage > state.endPage) state.endPage = state.startPage;
 
   // Jump scroll position to the start page immediately
+  setTimeout(() => {
   jumpToPage(state.startPage);
+}, 100);
 
   // Start animation loop
   state.isRunning = true;
