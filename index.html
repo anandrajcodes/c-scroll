@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Classroom PDF AutoScroller</title>
+
+  <!-- PDF.js library from CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
+  <!-- Google Fonts: DM Mono for labels, Sora for headings -->
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ============================
+       SIDEBAR / CONTROL PANEL
+  ============================= -->
+  <aside id="control-panel">
+
+    <!-- Branding -->
+    <div class="brand">
+      <div class="brand-icon">📽</div>
+      <div>
+        <h1 class="brand-title">AutoScroller</h1>
+        <span class="brand-sub">Classroom PDF Display</span>
+      </div>
+    </div>
+
+    <!-- Theme toggle -->
+    <button id="theme-toggle" class="icon-btn" title="Toggle dark/light mode">☀</button>
+
+    <hr class="divider" />
+
+    <!-- FILE UPLOAD SECTION -->
+    <section class="panel-section">
+      <label class="section-label">📄 PDF File</label>
+      <label id="upload-area" for="pdf-upload">
+        <div class="upload-icon">⬆</div>
+        <span id="upload-text">Click or drag a PDF here</span>
+        <input type="file" id="pdf-upload" accept="application/pdf" hidden />
+      </label>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- PAGE RANGE SECTION -->
+    <section class="panel-section">
+      <label class="section-label">📑 Page Range</label>
+      <div class="input-row">
+        <div class="input-group">
+          <label for="start-page">Start</label>
+          <input type="number" id="start-page" min="1" value="1" />
+        </div>
+        <div class="input-sep">→</div>
+        <div class="input-group">
+          <label for="end-page">End</label>
+          <input type="number" id="end-page" min="1" value="1" />
+        </div>
+      </div>
+      <p id="page-info" class="hint">Load a PDF to set pages</p>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- SCROLL SPEED SECTION -->
+    <section class="panel-section">
+      <label class="section-label">⚡ Scroll Speed</label>
+      <div class="speed-row">
+        <input type="range" id="speed-slider" min="10" max="300" value="80" />
+        <span id="speed-label">80 px/s</span>
+      </div>
+      <p class="hint">Slow (10) ← → Fast (300)</p>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- PLAYBACK CONTROLS -->
+    <section class="panel-section controls-section">
+      <label class="section-label">🎮 Controls</label>
+
+      <!-- Start -->
+      <button id="btn-start" class="ctrl-btn btn-start" disabled>
+        <span class="btn-icon">▶</span> Start Scrolling
+      </button>
+
+      <!-- Pause / Resume -->
+      <button id="btn-pause" class="ctrl-btn btn-pause" disabled>
+        <span class="btn-icon">⏸</span> Pause
+      </button>
+
+      <!-- Stop -->
+      <button id="btn-stop" class="ctrl-btn btn-stop" disabled>
+        <span class="btn-icon">⏹</span> Stop
+      </button>
+
+      <!-- Fullscreen -->
+      <button id="btn-fullscreen" class="ctrl-btn btn-fullscreen" disabled>
+        <span class="btn-icon">⛶</span> Fullscreen
+      </button>
+    </section>
+
+    <!-- STATUS BAR -->
+    <div id="status-bar">
+      <span id="status-dot" class="dot dot-idle"></span>
+      <span id="status-text">Idle — load a PDF to begin</span>
+    </div>
+
+  </aside>
+
+  <!-- ============================
+       MAIN DISPLAY AREA
+  ============================= -->
+  <main id="viewer-area">
+
+    <!-- Empty state shown before PDF loads -->
+    <div id="empty-state">
+      <div class="empty-icon">🗒</div>
+      <h2>No PDF loaded</h2>
+      <p>Upload a PDF from the left panel<br/>to begin your classroom session.</p>
+    </div>
+
+    <!-- Scrollable container where PDF pages are rendered -->
+    <div id="pdf-scroll-container">
+      <div id="pdf-canvas-wrapper">
+        <!-- PDF pages (canvas elements) are injected here by script.js -->
+      </div>
+    </div>
+
+    <!-- Overlay shown in fullscreen with minimal HUD -->
+    <div id="fullscreen-hud" hidden>
+      <span id="hud-page">Page — / —</span>
+      <button id="hud-pause" title="Pause/Resume">⏸</button>
+      <button id="hud-exit" title="Exit fullscreen">✕</button>
+    </div>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
