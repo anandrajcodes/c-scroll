@@ -188,7 +188,7 @@ async function renderPages() {
 
   // After all canvases are in the DOM, recalculate offsets
   // (layout reflow may have shifted things slightly)
-  recalculateOffsets();
+ setTimeout(recalculateOffsets, 50);
 }
 
 /**
